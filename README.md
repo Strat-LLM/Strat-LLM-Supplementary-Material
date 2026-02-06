@@ -64,7 +64,7 @@ Install the necessary dependencies:
 pip install torch transformers pandas numpy tushare yfinance
 
 
-2. Configuration
+### ⚙️ 2. Configuration
 Configure your market environment and alignment strategy in config.py. The system supports switching between A-share and U.S. market data streams.
 
 <details> <summary><b>📝 Click to view configuration example</b></summary>
@@ -88,7 +88,7 @@ LLM_CONFIG = {
 
 
 
-3. Execution
+### ▶️ 3. Execution
 Run the live-forward simulation:
 python run_strat_simulation.py --start_date 2025-01-01 --end_date 2025-12-31
 📂 Data & Framework Logic
@@ -120,14 +120,6 @@ $$r_t = w_t \cdot \frac{p_{t+1} - p_t}{p_t} - \text{TransactionCosts}$$
 
 ---
 
-## 📝 Citation
-If you find this code useful for your research, please cite our IJCNN submission:
+</div>
 
-```bibtex
-@inproceedings{stratllm2026,
-  title     = {Strat-LLM: Stratified Strategy Alignment for LLM-based Stock Trading with Real-time Multimodal Signals},
-  author    = {Anonymous},
-  booktitle = {International Joint Conference on Neural Networks (IJCNN)},
-  year      = {2026}
-}
-<div align="center"> <sub>[Strat-LLM Research Team]</sub> </div> ```
+</div>

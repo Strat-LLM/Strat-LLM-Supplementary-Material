@@ -70,11 +70,6 @@ Configure your market environment and alignment strategy in `config.py`. The sys
 <summary><b>📝 Click to view configuration example</b></summary>
 
 ```python
-### 3. Configuration
-
-The framework uses `ExperimentConfig` and `ModelConfig` dataclasses for centralized management. You can customize these settings in `config.py` or pass them dynamically.
-
-```python
 # config.py
 
 # Corresponds to ExperimentConfig class
@@ -177,5 +172,6 @@ $$\sigma_{C} = \sqrt{\frac{1}{N}\sum_{t=1}^{N}(\bar{C}_t - \bar{C})^2}$$
 Quantifies the excess return sacrificed for compliance, derived from the CAPM model:
 
 $$R_p - R_f = \alpha + \beta(R_m - R_f) + \epsilon$$
+
 
 

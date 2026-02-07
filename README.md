@@ -29,15 +29,15 @@ At its core, the project operates in a **Live-Forward 2025 Framework**, strictly
 
 #### 🛡️ Stratified Strategy Alignment
 Implements three distinct levels of autonomy to audit decision rationales:
-1.  **Free Mode:** Unrestricted Role-Playing (High Creativity, High Risk).
-2.  **Guided Mode:** Chain-of-Thought (CoT) with RAG support.
+1.  **Free Mode:** Unrestricted Role-Playing (Native Financial Intuition).
+2.  **Guided Mode:** **Human-AI Collaboration** (Strategies provided as reference with dynamic adjustment).
 3.  **Strict Mode:** Hard-constrained strategic execution.
 
 #### 📊 Live-Forward 2025 Setup
-Rejects traditional random-split backtesting. The framework strictly adheres to a timeline from **Jan 1, 2025, to Dec 31, 2025**, ensuring no future data leaks into the decision process.
+Rejects traditional random-split backtesting. The framework strictly adheres to a timeline from **Jan 1, 2025, to Sept 30, 2025**, ensuring no future data leaks into the decision process.
 
 #### 📈 Multimodal Signal Fusion
-Synthesizes high-frequency numerical data (**Alpha-360 factors**) with low-frequency textual insights (**Annual Report Summaries**) to drive trading decisions.
+Synthesizes high-frequency numerical data (**Daily/Minute-level Price Data**) with low-frequency textual insights (**Real-time News** & **Annual Report Summaries**) to drive trading decisions.
 
 #### 🧪 Cross-Market Stress Tests
 Evaluates performance divergence across distinct market environments:
@@ -57,10 +57,10 @@ Evaluates performance divergence across distinct market environments:
 | **Python** | `3.13` |
 | **Framework** | PyTorch (Latest Stable) |
 
-Install the necessary dependencies:
+Install the necessary dependencies (including **scikit-learn** and **matplotlib** for strategy evaluation and visualization):
 
 ```bash
-pip install torch transformers pandas numpy tushare yfinance
+pip install torch transformers pandas numpy tushare yfinance scikit-learn matplotlib accelerate
 ```
 
 ### ⚙️ 2. Configuration
@@ -98,7 +98,7 @@ Run the live-forward simulation:
 python run_strat_simulation.py 
 ```
 
-📂 4. Data & Framework Logic
+###📂 4. Data & Framework Logic
 
 ### Multimodal Inputs
 The framework integrates heterogeneous data streams to simulate a realistic trading environment:

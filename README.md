@@ -62,12 +62,15 @@ Install the necessary dependencies:
 
 ```bash
 pip install torch transformers pandas numpy tushare yfinance
-
+```
 
 ### ⚙️ 2. Configuration
-Configure your market environment and alignment strategy in config.py. The system supports switching between A-share and U.S. market data streams.
+Configure your market environment and alignment strategy in `config.py`. The system supports switching between A-share and U.S. market data streams.
 
-<details> <summary><b>📝 Click to view configuration example</b></summary>
+<details>
+<summary><b>📝 Click to view configuration example</b></summary>
+
+```python
 # config.py
 
 # Strategy Configuration

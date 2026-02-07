@@ -70,20 +70,40 @@ Configure your market environment and alignment strategy in `config.py`. The sys
 <summary><b>📝 Click to view configuration example</b></summary>
 
 ```python
+### 3. Configuration
+
+The framework uses `ExperimentConfig` and `ModelConfig` dataclasses for centralized management. You can customize these settings in `config.py` or pass them dynamically.
+
+```python
 # config.py
 
-# Strategy Configuration
-STRATEGY_CONFIG = {
-    'market': 'US',          # Options: 'CN' (A-share), 'US' (S&P 500)
-    'mode': 'Strict',        # Options: 'Free', 'Guided', 'Strict'
-    'lookback_window': 30,   # Days of historical data
+# Corresponds to ExperimentConfig class
+EXPERIMENT_CONFIG = {
+    # Market Selection
+    'market_type': 'us_stock',          # Options: 'us_stock', 'a_stock'
+    
+    # Strategy Alignment (The Core Feature)
+    'strategy_mode': 'strict_strategies', # Options: 'free_strategies', 'guided_strategies', 'strict_strategies'
+    'attitude': 'aggressive',             # Options: 'conservative', 'neutral', 'aggressive'
+    
+    # Data Granularity
+    'data_level': 'full_data',          # Options: 'price_only', 'price_news', 'full_data' (includes Annual Reports)
+    
+    # Time & Cycle
+    'cycle_type': 18,                   # 18 (Short Cycle) or 93 (Long Cycle)
+    'start_date': "2025-01-01",
+    'end_date': "2025-06-30"
 }
 
-# Model Settings
+# ================= Model Settings =================
+# Corresponds to ModelConfig class
 LLM_CONFIG = {
-    'model_name': 'Qwen/Qwen3-72B-Instruct', # Primary model used in 2025 experiments
-    'temperature': 0.1,      # Low temp for trading consistency
-    'max_tokens': 1024
+    'model_name': 'Qwen/Qwen3-32B',     # Primary model 
+    'api_base': "",
+    'enable_thinking': True,            # Enable Chain-of-Thought reasoning
+    'thinking_budget': 4096,            # Token budget for reasoning
+    'temperature': 0.7,
+    'max_tokens': 4096
 }
 ```
 </details>

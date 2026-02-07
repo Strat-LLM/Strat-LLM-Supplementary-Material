@@ -56,7 +56,6 @@ Evaluates performance divergence across distinct market environments:
 | :--- | :--- |
 | **Python** | `3.13` |
 | **Framework** | PyTorch (Latest Stable) |
-| **LLM Backend** | Qwen3 (via API or Local) |
 
 Install the necessary dependencies:
 
@@ -94,38 +93,64 @@ LLM_CONFIG = {
 
 ### ▶️ 3. Execution
 Run the live-forward simulation:
+
 ```python
-python run_strat_simulation.py --start_date 2025-01-01 --end_date 2025-12-31
+python run_strat_simulation.py 
 ```
-📂 Data & Framework Logic
-Multimodal Inputs
-The framework utilizes a dual-stream data structure to simulate the trading desk environment:
-Data Modality,Source,Description
-🔢 Numerical,Alpha-360 / Qlib,"Open, High, Low, Close, Volume + 360 Technical Factors"
-📄 Textual,Annual Reports,Summarized strategic outlooks and risk factors
-🌏 Markets,CSI 300 / S&P 500,Top constituents by market cap
+
+📂 4. Data & Framework Logic
+
+### Multimodal Inputs
+The framework integrates heterogeneous data streams to simulate a realistic trading environment:
+
+| **Data Modality** | **Source** | **Description** |
+| :--- | :--- | :--- |
+| 🔢 **Numerical** | Alpha-360 / Qlib | Open, High, Low, Close, Volume + 360 Technical Factors |
+| 📰 **News** | Real-time Streams | NLP-extracted sentiment and key events (2025 Live-forward) |
+| 📄 **Knowledge** | Annual Reports | Static strategic outlooks and risk factors |
+| 🌏 **Markets** | CSI 300 / S&P 500 | Top constituents covering A-Shares and U.S. Equities |
+
+### Framework Logic: Stratified Strategy Alignment
+To investigate the reliability boundaries of LLMs, we implement three progressive autonomy modes:
+
+| **Mode** | **Autonomy Level** | **Logic Specification** |
+| :--- | :--- | :--- |
+| 🦅 **Free Mode** | High (Zero-shot) | Relies solely on the LLM's native financial intuition. No external constraints. |
+| 🤝 **Guided Mode** | Medium (Co-pilot) | Strategies (S1-S4) provided as references. LLM can adjust based on news. |
+| 🔒 **Strict Mode** | Low (Compliance) | **Mandatory adherence.** LLM must cite specific Strategy Rules (e.g., *Breakout Momentum*) to justify trades. |
+
+> **Note:** The framework operates in a **Live-Forward** setting (2025), strictly preventing look-ahead bias by sequentially feeding data day-by-day.
+
 ### Theoretical Workflow
-The Strat-LLM decision process follows a sequential state-action workflow:
+The Strat-LLM framework operates on a **T+1 Rolling Basis**, strictly adhering to a Long-Only Accumulation Protocol to isolate entry precision from exit noise.
 
-#### 1. State Construction
-At time $t$, the agent observes a multimodal state $s_t$:
+#### 1. Multimodal State Construction
+At trading day $T$, the agent observes a composite state vector $S_T$, integrating real-time and static streams:
 
-$$s_t = \{ \mathbf{P}_{t-H:t}, \mathcal{D}_{text} \}$$
+$$S_T = \{ \mathbf{P}_{T}, \mathcal{N}_{T}, \mathcal{K}_{\text{static}} \}$$
 
-Where $\mathbf{P}$ represents the numerical price history and $\mathcal{D}_{text}$ represents the static textual knowledge base.
+* $\mathbf{P}_{T}$: Numerical market history (OHLCV + Technical Factors).
+* $\mathcal{N}_{T}$: **Real-time News Streams** (Sentiment & Key Events via NLP).
+* $\mathcal{K}_{\text{static}}$: Static Knowledge Base (Annual Reports & Strategic Outlooks).
 
-#### 2. Strategy Alignment
-The LLM generates a trading signal $a_t$ (Long/Short/Hold) conditioned on the alignment mode $\psi$:
+#### 2. Stratified Strategy Alignment
+The LLM generates a binary action $A_T \in \{0, 1\}$ based on the active Autonomy Mode ($\psi$):
 
-$$a_t \sim \pi_{\theta}(a_t | s_t, \psi)$$
+$$A_T = \pi_{\text{LLM}}(S_T, \psi) \rightarrow \begin{cases} 1 \text{ (Buy/Accumulate)} \\ 0 \text{ (Wait/Hold)} \end{cases}$$
 
-#### 3. Portfolio Execution
-Positions are adjusted to maximize the reward function $r_t$ (Daily Returns):
+* **Free Mode:** $\pi$ relies on intrinsic intuition.
+* **Strict Mode:** $\pi$ is constrained by expert rules ($S_1-S_4$), requiring specific rationale citations.
 
-$$r_t = w_t \cdot \frac{p_{t+1} - p_t}{p_t} - \text{TransactionCosts}$$
+#### 3. Execution & Metacognitive Auditing
+Unlike traditional RL rewards, we evaluate **Decision Consistency** and **Risk-Adjusted Alpha**.
 
----
+**Key Metric 1: Cognitive Dissonance ($\sigma_C$)**
+Measures the stability of the model's reasoning process under strict constraints. A spike in $\sigma_C$ indicates conflict between intuition and rules:
 
-</div>
+$$\sigma_{C} = \sqrt{\frac{1}{N}\sum_{t=1}^{N}(\bar{C}_t - \bar{C})^2}$$
 
-</div>
+**Key Metric 2: Alignment Tax (Alpha)**
+Quantifies the excess return sacrificed for compliance, derived from the CAPM model:
+
+$$R_p - R_f = \alpha + \beta(R_m - R_f) + \epsilon$$
+

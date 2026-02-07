@@ -86,6 +86,7 @@ LLM_CONFIG = {
     'temperature': 0.1,      # Low temp for trading consistency
     'max_tokens': 1024
 }
+```
 </details>
 
 
@@ -93,7 +94,9 @@ LLM_CONFIG = {
 
 ### ▶️ 3. Execution
 Run the live-forward simulation:
+```python
 python run_strat_simulation.py --start_date 2025-01-01 --end_date 2025-12-31
+```
 📂 Data & Framework Logic
 Multimodal Inputs
 The framework utilizes a dual-stream data structure to simulate the trading desk environment:

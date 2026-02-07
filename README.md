@@ -118,7 +118,7 @@ Run the live-forward simulation:
 python run_strat_simulation.py 
 ```
 
-###📂 4. Data & Framework Logic
+### 📂 4. Data & Framework Logic
 
 ### Multimodal Inputs
 The framework integrates heterogeneous data streams to simulate a realistic trading environment:
@@ -156,7 +156,12 @@ $$S_T = \{ \mathbf{P}_{T}, \mathcal{N}_{T}, \mathcal{K}_{\text{static}} \}$$
 #### 2. Stratified Strategy Alignment
 The LLM generates a binary action $A_T \in \{0, 1\}$ based on the active Autonomy Mode ($\psi$):
 
-$$A_T = \pi_{\text{LLM}}(S_T, \psi) \rightarrow \begin{cases} 1 \text{ (Buy/Accumulate)} \\ 0 \text{ (Wait/Hold)} \end{cases}$$
+$$
+A_T = \pi_{\text{LLM}}(S_T, \psi) \rightarrow \begin{cases} 
+1 & \text{(Buy/Accumulate)} \\\\
+0 & \text{(Wait/Hold)} 
+\end{cases}
+$$
 
 * **Free Mode:** $\pi$ relies on intrinsic intuition.
 * **Strict Mode:** $\pi$ is constrained by expert rules ($S_1-S_4$), requiring specific rationale citations.

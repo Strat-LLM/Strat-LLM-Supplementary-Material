@@ -95,7 +95,6 @@ EXPERIMENT_CONFIG = {
     'end_date': "2025-06-30"
 }
 
-# ================= Model Settings =================
 # Corresponds to ModelConfig class
 LLM_CONFIG = {
     'model_name': 'Qwen/Qwen3-32B',     # Primary model 
@@ -178,4 +177,5 @@ $$\sigma_{C} = \sqrt{\frac{1}{N}\sum_{t=1}^{N}(\bar{C}_t - \bar{C})^2}$$
 Quantifies the excess return sacrificed for compliance, derived from the CAPM model:
 
 $$R_p - R_f = \alpha + \beta(R_m - R_f) + \epsilon$$
+
 
